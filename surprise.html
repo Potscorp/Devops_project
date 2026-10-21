@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>A Little Surprise ♡</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="index.html">♥ Just for You</a><nav><a href="index.html">Home</a><a href="letter.html">Letter</a><a href="memories.html">Memories</a><a href="reasons.html">Little Things</a><a class="active" href="surprise.html">Surprise</a></nav></header>
+<main class="page surprise-page">
+<p class="eyebrow">One last little thing</p><h1>A Little Surprise <span>🎁</span></h1><p class="lead">Whenever you're ready, open the gift below.</p>
+<button class="gift-button" id="giftButton" aria-expanded="false" aria-controls="message"><span class="gift-icon">🎁</span><strong>Tap to open</strong><small>A tiny message is waiting</small></button>
+<article id="message" class="reveal" hidden>
+<div class="big-heart">💗</div><h2>One tiny question, just for you… 💌</h2>
+<p>I hope you get more days that feel calm, people who make you laugh, chances to do what you love, and little moments that remind you how good life can be.</p>
+<p>Thank you for being you. This page is small, but the thought behind it is genuine.</p>
+<div class="date-invitation">
+  <span class="invitation-sparkle">✦ ♡ ✦</span>
+  <p class="date-question">If you like this page, I would like to take you on a date. 💗</p>
+  <p class="date-subtext">Just you, me, a lovely place, and a little time together — if you would like that too.</p>
+  <span class="invitation-sparkle">♡ ✦ ♡</span>
+</div>
+<p class="signature">No pressure, just a little hope. ♡</p>
+</article>
+<a class="button" href="index.html">Back to the beginning ↺</a>
+
+<section class="portrait-section compact-portraits">
+  <p class="eyebrow">A few reasons this page is pink</p>
+  <div class="portrait-grid">
+    <figure class="portrait-card"><img src="images/portrait1.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffe0eb/c04b78?text=Add+portrait1.jpeg'"><figcaption>Lovely as always ♡</figcaption></figure>
+    <figure class="portrait-card"><img src="images/portrait2.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffd5e5/c04b78?text=Add+portrait2.jpeg'"><figcaption>A little bit of magic ✨</figcaption></figure>
+    <figure class="portrait-card"><img src="images/portrait3.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffe8ef/c04b78?text=Add+portrait3.jpeg'"><figcaption>Beautiful in her own way 🌷</figcaption></figure>
+    <figure class="portrait-card"><img src="images/portrait4.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffdae6/c04b78?text=Add+portrait4.jpeg'"><figcaption>Saved with a smile ♡</figcaption></figure>
+  </div>
+</section>
+</main><footer>Made with care, just for you ♥</footer>
+<script>
+const btn=document.getElementById('giftButton');
+const message=document.getElementById('message');
+btn.addEventListener('click',()=>{
+ const open=message.hidden;
+ message.hidden=!open;
+ btn.setAttribute('aria-expanded',String(open));
+ btn.querySelector('strong').textContent=open?'Gift opened ♡':'Tap to open';
+ if(open) for(let i=0;i<14;i++){
+  const h=document.createElement('span');h.className='confetti';h.textContent=['♥','♡','✦'][Math.floor(Math.random()*3)];
+  h.style.left=Math.random()*100+'vw';h.style.animationDuration=(2.5+Math.random()*2)+'s';document.body.appendChild(h);
+  h.addEventListener('animationend',()=>h.remove());
+ }
+});
+</script>
+</body></html>
