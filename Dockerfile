@@ -1,4 +1,23 @@
-FROM nginx:alpine
-COPY index.html letter.html memories.html reasons.html surprise.html style.css /usr/share/nginx/html/
-COPY images/ /usr/share/nginx/html/images/
-EXPOSE 80
+# Use an official Node.js runtime as a parent image
+FROM node:16
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install application dependencies
+RUN npm install
+
+# Copy the rest of the application files to the container
+COPY . .
+
+# Build the React app
+RUN npm run build
+
+# Expose port 3000 (assuming your Next.js app runs on port 3000)
+EXPOSE 3000
+
+# Define the command to run your application in development mode
+CMD ["npm", "run", "dev"]
