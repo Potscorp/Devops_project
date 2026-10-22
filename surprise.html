@@ -1,47 +1,329 @@
+```html
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>A Little Surprise ♡</title><link rel="stylesheet" href="style.css"></head>
-<body>
-<header class="topbar"><a class="brand" href="index.html">♥ Just for You</a><nav><a href="index.html">Home</a><a href="letter.html">Letter</a><a href="memories.html">Memories</a><a href="reasons.html">Little Things</a><a class="active" href="surprise.html">Surprise</a></nav></header>
-<main class="page surprise-page">
-<p class="eyebrow">One last little thing</p><h1>A Little Surprise <span>🎁</span></h1><p class="lead">Whenever you're ready, open the gift below.</p>
-<button class="gift-button" id="giftButton" aria-expanded="false" aria-controls="message"><span class="gift-icon">🎁</span><strong>Tap to open</strong><small>A tiny message is waiting</small></button>
-<article id="message" class="reveal" hidden>
-<div class="big-heart">💗</div><h2>One tiny question, just for you… 💌</h2>
-<p>I hope you get more days that feel calm, people who make you laugh, chances to do what you love, and little moments that remind you how good life can be.</p>
-<p>Thank you for being you. This page is small, but the thought behind it is genuine.</p>
-<div class="date-invitation">
-  <span class="invitation-sparkle">✦ ♡ ✦</span>
-  <p class="date-question">If you like this page, I would like to take you on a date. 💗</p>
-  <p class="date-subtext">Just you, me, a lovely place, and a little time together — if you would like that too.</p>
-  <span class="invitation-sparkle">♡ ✦ ♡</span>
-</div>
-<p class="signature">No pressure, just a little hope. ♡</p>
-</article>
-<a class="button" href="index.html">Back to the beginning ↺</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<section class="portrait-section compact-portraits">
-  <p class="eyebrow">A few reasons this page is pink</p>
-  <div class="portrait-grid">
-    <figure class="portrait-card"><img src="images/portrait1.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffe0eb/c04b78?text=Add+portrait1.jpeg'"><figcaption>Lovely as always ♡</figcaption></figure>
-    <figure class="portrait-card"><img src="images/portrait2.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffd5e5/c04b78?text=Add+portrait2.jpeg'"><figcaption>A little bit of magic ✨</figcaption></figure>
-    <figure class="portrait-card"><img src="images/portrait3.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffe8ef/c04b78?text=Add+portrait3.jpeg'"><figcaption>Beautiful in her own way 🌷</figcaption></figure>
-    <figure class="portrait-card"><img src="images/portrait4.jpeg" alt="Her portrait" onerror="this.onerror=null;this.src='https://placehold.co/600x780/ffdae6/c04b78?text=Add+portrait4.jpeg'"><figcaption>Saved with a smile ♡</figcaption></figure>
-  </div>
-</section>
-</main><footer>Made with care, just for you ♥</footer>
-<script>
-const btn=document.getElementById('giftButton');
-const message=document.getElementById('message');
-btn.addEventListener('click',()=>{
- const open=message.hidden;
- message.hidden=!open;
- btn.setAttribute('aria-expanded',String(open));
- btn.querySelector('strong').textContent=open?'Gift opened ♡':'Tap to open';
- if(open) for(let i=0;i<14;i++){
-  const h=document.createElement('span');h.className='confetti';h.textContent=['♥','♡','✦'][Math.floor(Math.random()*3)];
-  h.style.left=Math.random()*100+'vw';h.style.animationDuration=(2.5+Math.random()*2)+'s';document.body.appendChild(h);
-  h.addEventListener('animationend',()=>h.remove());
- }
-});
-</script>
-</body></html>
+    <title>A Little Surprise ♡</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .surprise-section {
+            min-height: 100vh;
+            padding: 50px 20px;
+            text-align: center;
+            color: #c2185b;
+        }
+
+        .surprise-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 12px;
+        }
+
+        .surprise-subtitle {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .gift-button {
+            border: none;
+            border-radius: 18px;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #ff80ab, #ec407a);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(194, 24, 91, 0.2);
+            transition: transform 0.25s;
+        }
+
+        .gift-button:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-message {
+            display: none;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 22px;
+            background: rgba(255, 225, 238, 0.9);
+            box-shadow: 0 8px 25px rgba(194, 24, 91, 0.15);
+            line-height: 1.8;
+        }
+
+        .gift-message.show {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .video-section {
+            max-width: 750px;
+            margin: 40px auto;
+        }
+
+        .video-section h2 {
+            margin-bottom: 12px;
+        }
+
+        .video-hint {
+            margin-bottom: 18px;
+        }
+
+        .romantic-video {
+            display: block;
+            width: 100%;
+            max-height: 520px;
+            margin: 0 auto;
+            border-radius: 20px;
+            background: #f8bbd0;
+            box-shadow: 0 8px 25px rgba(194, 24, 91, 0.2);
+            cursor: pointer;
+        }
+
+        .date-invitation {
+            max-width: 700px;
+            margin: 35px auto;
+            padding: 25px;
+            border-radius: 22px;
+            background: rgba(255, 240, 246, 0.92);
+            box-shadow: 0 8px 25px rgba(194, 24, 91, 0.12);
+        }
+
+        .date-invitation h2 {
+            margin-bottom: 12px;
+        }
+
+        .heart {
+            display: inline-block;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .surprise-section {
+                padding: 35px 15px;
+            }
+
+            .gift-message,
+            .date-invitation {
+                padding: 18px;
+            }
+
+            .romantic-video {
+                border-radius: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a class="brand" href="index.html">♥ Just for You</a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="letter.html">Letter</a>
+            <a href="memories.html">Memories</a>
+            <a href="reasons.html">Little Things</a>
+            <a class="active" href="surprise.html">Surprise</a>
+        </nav>
+    </header>
+
+    <main class="surprise-section">
+
+        <h1 class="surprise-title">
+            A Little Surprise for You <span class="heart">♡</span>
+        </h1>
+
+        <p class="surprise-subtitle">
+            Someone special deserves something special. 💗
+        </p>
+
+        <!-- Gift reveal button -->
+        <button
+            class="gift-button"
+            id="giftButton"
+            type="button"
+            onclick="revealGift()"
+        >
+            🎁 Click to Open Your Surprise
+        </button>
+
+        <!-- Hidden message revealed by clicking the gift -->
+        <section class="gift-message" id="giftMessage">
+            <h2>Surprise, Beautiful! 💕</h2>
+
+            <p>
+                If I could give you one thing in life, I would give you
+                the ability to see yourself through my eyes.
+                Only then would you realize how special you are to me. 💖
+            </p>
+
+            <p>
+                Every little moment becomes beautiful when it reminds me
+                of you. You make ordinary days feel extraordinary. 🌸
+            </p>
+
+            <p>
+                Keep smiling, keep shining, and always remember that
+                someone is wishing you the happiest things in life. 💗
+            </p>
+        </section>
+
+        <!-- Video section: clicking the video plays it -->
+        <section class="video-section">
+
+            <h2>🎬 A Special Video for You 💗</h2>
+
+            <p class="video-hint">
+                Tap the video to play it. Use the controls to pause or replay it.
+            </p>
+
+            <video
+                class="romantic-video"
+                id="romanticVideo"
+                controls
+                playsinline
+                preload="metadata"
+                poster="images/heroine.jpeg"
+                onclick="playVideo(this)"
+            >
+                <source src="images/priyavideo.mp4" type="video/mp4">
+
+                Your browser does not support video playback.
+            </video>
+
+        </section>
+
+        <!-- Date invitation -->
+        <section class="date-invitation">
+
+            <h2>One More Little Question 💌</h2>
+
+            <p>
+                If you like this page, I would like to take you on a date. 🌹
+            </p>
+
+            <p>
+                Just you, me, some good food, and beautiful memories
+                waiting to happen. 🥰
+            </p>
+
+            <button
+                class="gift-button"
+                type="button"
+                onclick="celebrate()"
+            >
+                💖 Let's Make a Memory!
+            </button>
+
+        </section>
+
+        <p>
+            Made with <span class="heart">♥</span> just for you.
+        </p>
+
+    </main>
+
+    <script>
+        // Reveal the surprise message
+        function revealGift() {
+            const message = document.getElementById("giftMessage");
+            const button = document.getElementById("giftButton");
+
+            message.classList.add("show");
+            button.textContent = "💝 Your Surprise Is Opened!";
+
+            button.disabled = true;
+            button.style.opacity = "0.8";
+
+            createConfetti();
+        }
+
+        // Play the video when clicked
+        function playVideo(video) {
+            if (video.paused) {
+                video.play().catch(function (error) {
+                    console.log("Video could not play:", error);
+                });
+            }
+        }
+
+        // Celebration effect
+        function celebrate() {
+            createConfetti();
+
+            alert(
+                "Yay! 💖 I hope this becomes a beautiful memory for us! 🌹"
+            );
+        }
+
+        // Falling hearts and confetti
+        function createConfetti() {
+            const symbols = ["💗", "💕", "💖", "💘", "🌸", "✨", "♥"];
+
+            for (let i = 0; i < 45; i++) {
+                const piece = document.createElement("span");
+
+                piece.className = "confetti";
+                piece.textContent =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+
+                piece.style.left = Math.random() * 100 + "vw";
+                piece.style.fontSize =
+                    (Math.random() * 16 + 12) + "px";
+
+                piece.style.animationDuration =
+                    (Math.random() * 3 + 3) + "s";
+
+                document.body.appendChild(piece);
+
+                setTimeout(function () {
+                    piece.remove();
+                }, 6500);
+            }
+        }
+    </script>
+
+</body>
+</html>
+```
